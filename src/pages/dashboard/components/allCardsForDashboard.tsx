@@ -1,14 +1,21 @@
+// shadcn/ui
 import { Card } from "@/components/ui/card";
-import { DollarSign, Package, ShoppingCart, TrendingUp } from "lucide-react";
-import { useState } from "react";
 
-function AllCardsForDashboard() {
-  const [data, setData] = useState({
-    total_products: 12,
-    total_sales: 32622,
-    total_revenue: 4144114,
-    average_price: 240.67,
-  });
+// lucide-react
+import { DollarSign, Package, ShoppingCart, TrendingUp } from "lucide-react";
+
+interface DataProps {
+  total_products: number;
+  total_sales: number;
+  total_revenue: number;
+  average_price: number;
+}
+
+interface Props {
+  data: DataProps;
+}
+
+function AllCardsForDashboard({ data }: Props) {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 w-full">
       <Card className=" justify-center gap-2 p-5">
