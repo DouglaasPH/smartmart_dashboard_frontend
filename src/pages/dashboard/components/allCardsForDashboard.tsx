@@ -22,7 +22,9 @@ function AllCardsForDashboard({ data }: Props) {
         <div className="bg-blue-100 w-10 h-10 flex justify-center items-center rounded-md">
           <Package className="size-6 text-blue-600" />
         </div>
-        <p className="font-semibold text-2xl">{data.total_products}</p>
+        <p className="font-semibold text-2xl">
+          {data.total_products.toLocaleString()}
+        </p>
         <span className="text-sm text-gray-500">Total de Produtos</span>
       </Card>
       <Card className=" justify-center gap-2 p-5">
@@ -30,7 +32,9 @@ function AllCardsForDashboard({ data }: Props) {
           <ShoppingCart className="size-6 text-green-600" />
         </div>
 
-        <p className="font-semibold text-2xl">{data.total_sales}</p>
+        <p className="font-semibold text-2xl">
+          {data.total_sales.toLocaleString()}
+        </p>
         <span className="text-sm text-gray-500">
           Total de Vendas (Unidades)
         </span>
@@ -39,14 +43,18 @@ function AllCardsForDashboard({ data }: Props) {
         <div className="bg-purple-100 w-10 h-10 flex justify-center items-center rounded-md">
           <DollarSign className="size-6 text-purple-600" />
         </div>
-        <p className="font-semibold text-2xl">R${data.total_revenue}</p>
+        <p className="font-semibold text-2xl">
+          R${data.total_revenue.toLocaleString()}
+        </p>
         <span className="text-sm text-gray-500">Total de Receita</span>
       </Card>
       <Card className=" justify-center gap-2 p-5">
         <div className="bg-orange-100 w-10 h-10 flex justify-center items-center rounded-md">
           <TrendingUp className="size-6 text-orange-600" />
         </div>
-        <p className="font-semibold text-2xl">R${data.average_price}</p>
+        <p className="font-semibold text-2xl">
+          R${data.average_price.toLocaleString()}
+        </p>
         <span className="text-sm text-gray-500">Preço Médio</span>
       </Card>
     </section>
