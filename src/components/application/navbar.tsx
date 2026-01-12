@@ -64,7 +64,7 @@ function Navbar() {
                 onClick={() => click("Products")}
               >
                 <Package />
-                <span>Products</span>
+                <span>Produtos</span>
               </Button>
               <Button
                 className={`cursor-pointer h-8 gap-2 text-sm font-medium ${
@@ -75,7 +75,7 @@ function Navbar() {
                 onClick={() => click("CSV Management")}
               >
                 <FileSpreadsheet />
-                <span>CSV Management</span>
+                <span>Gerenciar arquivos CSV</span>
               </Button>
             </div>
           </div>
@@ -121,7 +121,7 @@ function Navbar() {
             onClick={() => click("Products")}
           >
             <Package />
-            <span>Products</span>
+            <span>Produtos</span>
           </Button>
           <Button
             className={`cursor-pointer justify-start h-10 gap-2 text-sm font-medium ${
@@ -132,7 +132,7 @@ function Navbar() {
             onClick={() => click("CSV Management")}
           >
             <FileSpreadsheet />
-            <span>CSV Management</span>
+            <span>Gerenciar arquivos CSV</span>
           </Button>
         </div>
       </div>

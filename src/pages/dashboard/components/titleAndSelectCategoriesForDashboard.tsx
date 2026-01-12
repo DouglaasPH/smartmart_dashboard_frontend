@@ -13,7 +13,8 @@ function TitleAndSelectCategoriesForDashboard() {
       <div className="flex flex-col gap-2">
         <h1 className="font-semibold text-4xl">Dashboard</h1>
         <p className="text-gray-600">
-          Comprehensive overview of your product sales and revenue analytics
+          Visão geral completa das suas análises de vendas e receitas de
+          produtos.
         </p>
       </div>
 
@@ -21,7 +22,7 @@ function TitleAndSelectCategoriesForDashboard() {
       <div className="md:w-auto w-full">
         <Select>
           <SelectTrigger className="w-full md:w-[270px] bg-gray-100 font-medium text-gray-700">
-            <SelectValue placeholder="All categories" />
+            <SelectValue placeholder="Todas categorias" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="light">Light</SelectItem>
