@@ -5,7 +5,7 @@ import { ROUTES } from "./routes";
 export const request_to_create_category = async (
   name: string
 ): Promise<Category> => {
-  return await api.post(
+  const request = await api.post(
     ROUTES.categories.add,
     {
       name,
@@ -16,6 +16,7 @@ export const request_to_create_category = async (
       },
     }
   );
+  return request.data;
 };
 
 export const request_to_list_category = async (): Promise<Category[]> => {

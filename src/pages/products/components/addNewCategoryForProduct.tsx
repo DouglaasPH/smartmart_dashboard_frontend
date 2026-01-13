@@ -1,3 +1,4 @@
+import { request_to_create_category } from "@/api/services_categories";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,9 +14,15 @@ function AddNewCategoryForProduct({ setIsAddCategory }: Props) {
   const dispatch = useDispatch();
   const [newCategory, setNewCategory] = useState("");
 
-  const handleAdd = () => {
-    setIsAddCategory(false);
-    dispatch(addCategory({ id: 232, name: newCategory }));
+  const handleAdd = async () => {
+    try {
+      const response = await request_to_create_category(newCategory);
+      dispatch(addCategory(response));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAddCategory(false);
+    }
   };
 
   const handleCancel = () => {
