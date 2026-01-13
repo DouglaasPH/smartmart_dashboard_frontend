@@ -1,6 +1,6 @@
 // react
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // lucide-react
 import {
@@ -15,15 +15,15 @@ import {
 import { Button } from "../ui/button";
 
 function Navbar() {
+  const location = useLocation();
+  console.log(location.pathname);
   const navigate = useNavigate();
-  const [currentButton, setCurrentButton] = useState("Dashboard");
+  const [currentPathName, setCurrentPathName] = useState(location.pathname);
   const [isActiveMenuBar, setIsActiveMenuBar] = useState(false);
 
-  const click = (button: string) => {
-    setCurrentButton(button);
-    if (button == "Dashboard") navigate("/");
-    else if (button == "Products") navigate("/products");
-    else if (button == "CSV Management") navigate("/csv-management");
+  const click = (pathname: string) => {
+    setCurrentPathName(pathname);
+    navigate(pathname);
   };
 
   return (
@@ -46,33 +46,33 @@ function Navbar() {
             <div className="flex gap-5">
               <Button
                 className={`cursor-pointer h-8 gap-2 text-sm font-medium ${
-                  currentButton == "Dashboard"
+                  currentPathName == "/"
                     ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                     : "bg-transparent hover:bg-gray-100 text-gray-600"
                 }`}
-                onClick={() => click("Dashboard")}
+                onClick={() => click("/")}
               >
                 <LayoutDashboard className="size-3.5" />
                 <span>Dashboard</span>
               </Button>
               <Button
                 className={`cursor-pointer h-8 gap-2 text-sm font-medium ${
-                  currentButton == "Products"
+                  currentPathName == "/products"
                     ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                     : "bg-transparent hover:bg-gray-100 text-gray-600"
                 }`}
-                onClick={() => click("Products")}
+                onClick={() => click("/products")}
               >
                 <Package />
                 <span>Produtos</span>
               </Button>
               <Button
                 className={`cursor-pointer h-8 gap-2 text-sm font-medium ${
-                  currentButton == "CSV Management"
+                  currentPathName == "/csv-management"
                     ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                     : "bg-transparent hover:bg-gray-100 text-gray-600"
                 }`}
-                onClick={() => click("CSV Management")}
+                onClick={() => click("/csv-management")}
               >
                 <FileSpreadsheet />
                 <span>Gerenciar arquivos CSV</span>
@@ -103,33 +103,33 @@ function Navbar() {
         <div className="flex flex-col border-t-1 p-2">
           <Button
             className={`cursor-pointer justify-start h-10 gap-2 text-sm font-medium ${
-              currentButton == "Dashboard"
+              currentPathName == "/"
                 ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                 : "bg-transparent hover:bg-gray-100 text-gray-600"
             }`}
-            onClick={() => click("Dashboard")}
+            onClick={() => click("/")}
           >
             <LayoutDashboard className="size-3.5" />
             <span>Dashboard</span>
           </Button>
           <Button
             className={`cursor-pointer justify-start h-10 gap-2 text-sm font-medium ${
-              currentButton == "Products"
+              currentPathName == "/products"
                 ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                 : "bg-transparent hover:bg-gray-100 text-gray-600"
             }`}
-            onClick={() => click("Products")}
+            onClick={() => click("/products")}
           >
             <Package />
             <span>Produtos</span>
           </Button>
           <Button
             className={`cursor-pointer justify-start h-10 gap-2 text-sm font-medium ${
-              currentButton == "CSV Management"
+              currentPathName == "/csv-management"
                 ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
                 : "bg-transparent hover:bg-gray-100 text-gray-600"
             }`}
-            onClick={() => click("CSV Management")}
+            onClick={() => click("/csv-management")}
           >
             <FileSpreadsheet />
             <span>Gerenciar arquivos CSV</span>
