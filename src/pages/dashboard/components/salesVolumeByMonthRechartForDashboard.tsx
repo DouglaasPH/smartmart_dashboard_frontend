@@ -1,4 +1,5 @@
 import { Card, CardHeader } from "@/components/ui/card";
+import type { Sale } from "@/types";
 import { Target } from "lucide-react";
 import { useMemo } from "react";
 import {
@@ -12,7 +13,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function SalesVolumeByMonthRechartForDashboard() {
+interface Props {
+  dataForGraphic: Sale[];
+}
+
+function SalesVolumeByMonthRechartForDashboard({ dataForGraphic }: Props) {
   const months = [
     "Jan",
     "Fev",
@@ -27,9 +32,7 @@ function SalesVolumeByMonthRechartForDashboard() {
     "Nov",
     "Dez",
   ];
-  const data = [
-    2175, 2300, 2400, 2500, 2600, 2700, 2900, 3000, 3100, 3200, 3300, 3400,
-  ];
+  const data = Object.values(dataForGraphic).map((item) => item.quantity);
 
   const salesByMonth = useMemo(() => {
     return months.map((month, index) => ({

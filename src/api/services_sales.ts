@@ -3,11 +3,12 @@ import api from "./axios";
 import { ROUTES } from "./routes";
 
 export const request_to_list_sale = async (): Promise<Sale[]> => {
-  return await api.get(ROUTES.sales.list, {
+  const request = await api.get(ROUTES.sales.list, {
     headers: {
       "Content-Type": "application/json",
     },
   });
+  return request.data;
 };
 
 export const request_to_edit_sale = async (
