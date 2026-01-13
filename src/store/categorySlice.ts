@@ -2,11 +2,7 @@ import type { Category } from "@/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: Category[] = [
-  { id: 1, name: "TVs" },
-  { id: 2, name: "Smartphone" },
-  { id: 3, name: "Notebooks" },
-];
+const initialState: Category[] = [];
 
 const categorySlice = createSlice({
   name: "category",
