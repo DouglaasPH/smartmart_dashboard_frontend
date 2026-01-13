@@ -11,9 +11,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { RootState } from "@/store/store";
 import { Search } from "lucide-react";
+import { useSelector } from "react-redux";
 
-function SearchAndFilterForProduct() {
+interface Props {
+  selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function SearchAndFilterForProduct({
+  selectedCategory,
+  setSelectedCategory,
+}: Props) {
+  const allCategories = useSelector((state: RootState) => state.category);
   return (
     <Card className="w-full p-4 gap-2">
       <div className="flex gap-5 md:flex-row flex-col w-full">
@@ -26,16 +37,26 @@ function SearchAndFilterForProduct() {
         </InputGroup>
         <Select>
           <SelectTrigger className="w-full md:w-[270px] bg-gray-100 font-medium text-gray-700">
-            <SelectValue placeholder="Todas categorias" />
+            <SelectValue placeholder={selectedCategory} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
+            <SelectItem
+              value="Todas categorias"
+              onClick={() => setSelectedCategory("Todas categorias")}
+            >
+              Todas categorias
+            </SelectItem>
+            {allCategories.map((category) => (
+              <SelectItem
+                value={category.name}
+                onClick={() => setSelectedCategory(category.name)}
+              >
+                {category.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
-      <span className="text-sm text-gray-500">
-        Mostrando 1-10 de 12 produtos
-      </span>
     </Card>
   );
 }

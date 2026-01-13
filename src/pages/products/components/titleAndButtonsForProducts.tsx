@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Plus, Tag } from "lucide-react";
 
-function TitleAndButtonsForProducts() {
+interface Props {
+  setIsAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function TitleAndButtonsForProducts({ setIsAddCategory }: Props) {
   return (
     <section className="flex justify-between w-full items-start md:flex-row flex-col md:gap-auto gap-5">
       {/* Title and Description */}
@@ -12,11 +16,14 @@ function TitleAndButtonsForProducts() {
 
       {/* Buttons */}
       <div className="md:w-auto w-full flex gap-3 flex-col sm:flex-row">
-        <Button className="bg-green-600">
+        <Button
+          className="bg-green-600 hover:bg-green-500 cursor-pointer"
+          onClick={() => setIsAddCategory(true)}
+        >
           <Tag />
           <span>Adicionar Categoria</span>
         </Button>
-        <Button className="bg-blue-600">
+        <Button className="bg-blue-600 hover:bg-blue-500 cursor-pointer">
           <Plus />
           Adicionar Produto
         </Button>
