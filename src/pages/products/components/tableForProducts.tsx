@@ -18,12 +18,14 @@ interface Props {
   setIsEditProduct: React.Dispatch<React.SetStateAction<boolean>>;
   setDataForEditProduct: React.Dispatch<React.SetStateAction<Product>>;
   selectedCategory: string;
+  inputSearch: string;
 }
 
 function TableForProducts({
   setIsEditProduct,
   setDataForEditProduct,
   selectedCategory,
+  inputSearch,
 }: Props) {
   const allColumns = [
     "MARCA",
@@ -36,11 +38,23 @@ function TableForProducts({
 
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.product);
-  const filteredData = data.filter(
-    (product) =>
+
+  const filteredData = data.filter((product) => {
+    const matchesCategory =
       selectedCategory === "Todas categorias" ||
-      product.category.name === selectedCategory
-  );
+      product.category.name === selectedCategory;
+
+    const search = inputSearch.toLowerCase().trim();
+
+    const matchesSearch = search
+      ? product.brand.toLowerCase().includes(search) ||
+        product.name.toLowerCase().includes(search) ||
+        product.description.toLowerCase().includes(search) ||
+        product.price.toString().includes(search)
+      : true;
+
+    return matchesCategory && matchesSearch;
+  });
 
   const handleDelete = (product_id: number) => {
     dispatch(removeProduct(product_id));

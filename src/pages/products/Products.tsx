@@ -10,11 +10,14 @@ import TitleAndButtonsForProducts from "./components/titleAndButtonsForProducts"
 
 // types
 import type { Product } from "@/types";
+import AddNewProductForProduct from "./components/addNewProductForProduct";
 
 function Products() {
   const [isEditProduct, setIsEditProduct] = useState(false);
   const [isAddCategory, setIsAddCategory] = useState(false);
+  const [isAddProduct, setIsAddProduct] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Todas categorias");
+  const [inputSearch, setInputSearch] = useState("");
   const [dataForEditProduct, setDataForEditProduct] = useState<Product>({
     id: 2,
     name: "LG OLED55C1",
@@ -31,18 +34,26 @@ function Products() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between flex-col h-16 mt-20 gap-8">
-        <TitleAndButtonsForProducts setIsAddCategory={setIsAddCategory} />
+        <TitleAndButtonsForProducts
+          setIsAddCategory={setIsAddCategory}
+          setIsAddProduct={setIsAddProduct}
+        />
         {isAddCategory ? (
           <AddNewCategoryForProduct setIsAddCategory={setIsAddCategory} />
         ) : null}
+        {isAddProduct ? (
+          <AddNewProductForProduct setIsAddProduct={setIsAddProduct} />
+        ) : null}
         <SearchAndFilterForProduct
           selectedCategory={selectedCategory}
+          setInputSearch={setInputSearch}
           setSelectedCategory={setSelectedCategory}
         />
         <TableForProducts
           setIsEditProduct={setIsEditProduct}
           setDataForEditProduct={setDataForEditProduct}
           selectedCategory={selectedCategory}
+          inputSearch={inputSearch}
         />
         {isEditProduct ? (
           <CardOfEditProductForProduct

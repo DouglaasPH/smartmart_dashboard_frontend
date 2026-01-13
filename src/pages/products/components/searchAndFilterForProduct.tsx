@@ -18,11 +18,13 @@ import { useSelector } from "react-redux";
 interface Props {
   selectedCategory: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  setInputSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function SearchAndFilterForProduct({
   selectedCategory,
   setSelectedCategory,
+  setInputSearch,
 }: Props) {
   const allCategories = useSelector((state: RootState) => state.category);
 
@@ -30,7 +32,10 @@ function SearchAndFilterForProduct({
     <Card className="w-full p-4 gap-2">
       <div className="flex gap-5 md:flex-row flex-col w-full">
         <InputGroup>
-          <InputGroupInput placeholder="Pesquise produtos por nome ou categoria" />
+          <InputGroupInput
+            placeholder="Pesquise produtos por marca, nome, descrição ou preço"
+            onChange={(e) => setInputSearch(e.target.value)}
+          />
           <InputGroupAddon>
             <Search />
           </InputGroupAddon>

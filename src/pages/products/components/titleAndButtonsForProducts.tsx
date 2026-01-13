@@ -3,9 +3,13 @@ import { Plus, Tag } from "lucide-react";
 
 interface Props {
   setIsAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddProduct: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function TitleAndButtonsForProducts({ setIsAddCategory }: Props) {
+function TitleAndButtonsForProducts({
+  setIsAddCategory,
+  setIsAddProduct,
+}: Props) {
   return (
     <section className="flex justify-between w-full items-start md:flex-row flex-col md:gap-auto gap-5">
       {/* Title and Description */}
@@ -23,7 +27,10 @@ function TitleAndButtonsForProducts({ setIsAddCategory }: Props) {
           <Tag />
           <span>Adicionar Categoria</span>
         </Button>
-        <Button className="bg-blue-600 hover:bg-blue-500 cursor-pointer">
+        <Button
+          className="bg-blue-600 hover:bg-blue-500 cursor-pointer"
+          onClick={() => setIsAddProduct(true)}
+        >
           <Plus />
           Adicionar Produto
         </Button>
