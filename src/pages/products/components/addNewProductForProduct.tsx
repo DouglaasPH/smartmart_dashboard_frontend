@@ -1,3 +1,4 @@
+import { request_to_create_product } from "@/api/services_products";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { addProduct } from "@/store/productSlice";
 import type { RootState } from "@/store/store";
 import type { Product } from "@/types";
 import { useState } from "react";
@@ -22,6 +24,7 @@ function AddNewProductForProduct({ setIsAddProduct }: Props) {
   const dispatch = useDispatch();
   const allCategories = useSelector((state: RootState) => state.category);
   const [data, setData] = useState<Product>({
+    id: 0,
     brand: "",
     name: "",
     description: "",
@@ -32,7 +35,19 @@ function AddNewProductForProduct({ setIsAddProduct }: Props) {
     },
   });
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
+    try {
+      const response = await request_to_create_product(
+        data.name,
+        data.description,
+        data.brand,
+        data.price,
+        data.category.id
+      );
+      dispatch(addProduct(response));
+    } catch (error) {
+      console.error(error);
+    }
     setIsAddProduct(false);
     return;
   };
@@ -72,20 +87,32 @@ function AddNewProductForProduct({ setIsAddProduct }: Props) {
           <span className="text-sm text-gray-600">Preço</span>
           <Input
             value={data.price}
-            onChange={(e) => setData({ ...data, price: e.target.value })}
+            onChange={(e) =>
+              setData({ ...data, price: Number(e.target.value) })
+            }
             type="number"
           />
         </div>
         <div>
           <span className="text-sm text-gray-600">Categoria</span>
-          <Select>
+          <Select
+            onValueChange={(v) =>
+              setData({
+                ...data,
+                category: {
+                  id: Number(v),
+                  name: "",
+                },
+              })
+            }
+          >
             <SelectTrigger className="w-full bg-gray-100 font-medium text-gray-700">
               <SelectValue placeholder={data.category.name} />
             </SelectTrigger>
             <SelectContent>
               {allCategories.map((category) => (
                 <SelectItem
-                  value={category.name}
+                  value={String(category.id)}
                   onClick={() => setData({ ...data, category: category })}
                 >
                   {category.name}

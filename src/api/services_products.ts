@@ -9,14 +9,14 @@ export const request_to_create_product = async (
   price: number,
   category_id: number
 ): Promise<Product> => {
-  return await api.post(
+  const request = await api.post(
     ROUTES.products.add,
     {
-      name,
-      description,
-      price,
-      brand,
-      category_id,
+      name: name,
+      description: description,
+      price: price,
+      brand: brand,
+      category_id: category_id,
     },
     {
       headers: {
@@ -24,6 +24,7 @@ export const request_to_create_product = async (
       },
     }
   );
+  return request.data;
 };
 
 export const request_to_list_products = async (): Promise<Product[]> => {
