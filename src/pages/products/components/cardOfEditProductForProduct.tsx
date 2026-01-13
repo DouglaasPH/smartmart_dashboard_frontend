@@ -1,0 +1,107 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import type { RootState } from "@/store/store";
+import type { Product } from "@/types";
+import { useSelector } from "react-redux";
+
+interface Props {
+  data: Product;
+  setData: React.Dispatch<React.SetStateAction<Product>>;
+  setIsEditProduct: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function CardOfEditProductForProduct({
+  data,
+  setData,
+  setIsEditProduct,
+}: Props) {
+  const allCategories = useSelector((state: RootState) => state.category);
+
+  const handleSave = () => {
+    setIsEditProduct(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditProduct(false);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <Card className="relative z-10 w-full max-w-xl p-6">
+        <h4 className="font-semibold text-2xl">Alterar dados do produto</h4>
+        <div className="space-y-4">
+          <span className="text-sm text-gray-600">Marca</span>
+          <Input
+            value={data.brand}
+            onChange={(e) => setData({ ...data, brand: e.target.value })}
+          />
+        </div>
+        <div>
+          <span className="text-sm text-gray-600">Nome do produto</span>
+          <Input
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
+        </div>
+        <div>
+          <span className="text-sm text-gray-600">Descrição</span>
+          <Textarea
+            value={data.description}
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+          />
+        </div>
+        <div>
+          <span className="text-sm text-gray-600">Preço</span>
+          <Input
+            value={data.price}
+            onChange={(e) => setData({ ...data, price: e.target.value })}
+          />
+        </div>
+        <div>
+          <span className="text-sm text-gray-600">Categoria</span>
+          <Select>
+            <SelectTrigger className="w-full bg-gray-100 font-medium text-gray-700">
+              <SelectValue placeholder={data.category.name} />
+            </SelectTrigger>
+            <SelectContent>
+              {allCategories.map((category) => (
+                <SelectItem
+                  value={category.name}
+                  onClick={() => setData({ ...data, category: category })}
+                >
+                  {category.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex gap-5">
+          <Button
+            className="w-40 bg-green-600 hover:bg-green-700 cursor-pointer"
+            onClick={() => handleSave()}
+          >
+            Salvar
+          </Button>
+          <Button
+            className="w-40 bg-red-600 hover:bg-red-700 cursor-pointer"
+            onClick={() => handleCancel()}
+          >
+            Cancelar
+          </Button>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+export default CardOfEditProductForProduct;
