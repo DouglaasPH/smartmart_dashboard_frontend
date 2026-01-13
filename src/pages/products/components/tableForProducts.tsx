@@ -13,12 +13,15 @@ import type { Product } from "@/types";
 import { Pencil, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import NoFound from "./noFound";
+import { useEffect } from "react";
 
 interface Props {
   setIsEditProduct: React.Dispatch<React.SetStateAction<boolean>>;
   setDataForEditProduct: React.Dispatch<React.SetStateAction<Product>>;
   selectedCategory: string;
   inputSearch: string;
+  currentPage: number;
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function TableForProducts({
@@ -26,6 +29,8 @@ function TableForProducts({
   setDataForEditProduct,
   selectedCategory,
   inputSearch,
+  currentPage,
+  setTotalPages,
 }: Props) {
   const allColumns = [
     "MARCA",
@@ -65,6 +70,13 @@ function TableForProducts({
     setIsEditProduct(true);
   };
 
+  useEffect(() => {
+    setTotalPages(Math.ceil(filteredData.length / 10));
+  }, [filteredData]);
+
+  const minRow = (currentPage - 1) * 10;
+  const maxRow = currentPage * 10;
+
   return (
     <Card className="w-full p-4">
       <Table>
@@ -77,29 +89,31 @@ function TableForProducts({
         </TableHeader>
         <TableBody>
           {filteredData.length === 0 ? <NoFound /> : null}
-          {filteredData.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.brand}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.description}</TableCell>
-              <TableCell>{Number(product.price).toLocaleString()}</TableCell>
-              <TableCell>{product.category.name}</TableCell>
-              <TableCell className="flex flex-row gap-5">
-                <span
-                  className="cursor-pointer hover:bg-blue-50 rounded-sm p-1"
-                  onClick={() => handleModify(product)}
-                >
-                  <Pencil className="size-4 text-blue-600" />
-                </span>
-                <span
-                  className="cursor-pointer hover:bg-red-50 rounded-sm p-1"
-                  onClick={() => handleDelete(product.id)}
-                >
-                  <Trash2 className="size-4 text-red-600" />
-                </span>
-              </TableCell>
-            </TableRow>
-          ))}
+          {filteredData.map((product, index) =>
+            index < maxRow && index >= minRow ? (
+              <TableRow key={product.id}>
+                <TableCell>{product.brand}</TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.description}</TableCell>
+                <TableCell>{Number(product.price).toLocaleString()}</TableCell>
+                <TableCell>{product.category.name}</TableCell>
+                <TableCell className="flex flex-row gap-5">
+                  <span
+                    className="cursor-pointer hover:bg-blue-50 rounded-sm p-1"
+                    onClick={() => handleModify(product)}
+                  >
+                    <Pencil className="size-4 text-blue-600" />
+                  </span>
+                  <span
+                    className="cursor-pointer hover:bg-red-50 rounded-sm p-1"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    <Trash2 className="size-4 text-red-600" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            ) : null
+          )}
         </TableBody>
       </Table>
     </Card>

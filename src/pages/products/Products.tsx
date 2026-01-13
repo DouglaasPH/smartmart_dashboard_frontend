@@ -11,6 +11,7 @@ import TitleAndButtonsForProducts from "./components/titleAndButtonsForProducts"
 // types
 import type { Product } from "@/types";
 import AddNewProductForProduct from "./components/addNewProductForProduct";
+import PaginationForProduct from "./components/paginationForProduct";
 
 function Products() {
   const [isEditProduct, setIsEditProduct] = useState(false);
@@ -30,10 +31,12 @@ function Products() {
     },
     brand: "LG",
   });
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between flex-col h-16 mt-20 gap-8">
+      <div className="flex items-center justify-between flex-col my-20 gap-8">
         <TitleAndButtonsForProducts
           setIsAddCategory={setIsAddCategory}
           setIsAddProduct={setIsAddProduct}
@@ -54,6 +57,8 @@ function Products() {
           setDataForEditProduct={setDataForEditProduct}
           selectedCategory={selectedCategory}
           inputSearch={inputSearch}
+          setTotalPages={setTotalPages}
+          currentPage={currentPage}
         />
         {isEditProduct ? (
           <CardOfEditProductForProduct
@@ -62,6 +67,11 @@ function Products() {
             setIsEditProduct={setIsEditProduct}
           />
         ) : null}
+        <PaginationForProduct
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
