@@ -16,7 +16,6 @@ import { Button } from "../ui/button";
 
 function Navbar() {
   const location = useLocation();
-  console.log(location.pathname);
   const navigate = useNavigate();
   const [currentPathName, setCurrentPathName] = useState(location.pathname);
   const [isActiveMenuBar, setIsActiveMenuBar] = useState(false);
