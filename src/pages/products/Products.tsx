@@ -42,6 +42,7 @@ function Products() {
         <TableForProducts
           setIsEditProduct={setIsEditProduct}
           setDataForEditProduct={setDataForEditProduct}
+          selectedCategory={selectedCategory}
         />
         {isEditProduct ? (
           <CardOfEditProductForProduct

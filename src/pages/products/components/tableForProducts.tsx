@@ -7,16 +7,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { removeProduct } from "@/store/productSlice";
+import type { RootState } from "@/store/store";
 import type { Product } from "@/types";
 import { Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   setIsEditProduct: React.Dispatch<React.SetStateAction<boolean>>;
   setDataForEditProduct: React.Dispatch<React.SetStateAction<Product>>;
+  selectedCategory: string;
 }
 
-function TableForProducts({ setIsEditProduct, setDataForEditProduct }: Props) {
+function TableForProducts({
+  setIsEditProduct,
+  setDataForEditProduct,
+  selectedCategory,
+}: Props) {
   const allColumns = [
     "MARCA",
     "NOME DO PRODUTO",
@@ -26,23 +33,11 @@ function TableForProducts({ setIsEditProduct, setDataForEditProduct }: Props) {
     "AÇÕES",
   ];
 
-  const [data, setData] = useState<Product[]>([
-    {
-      id: 2,
-      name: "LG OLED55C1",
-      description:
-        "55-inch OLED 4K Smart TV with AI ThinQ and G-Sync compatibility",
-      price: "1499.99",
-      category: {
-        id: 1,
-        name: "TVs",
-      },
-      brand: "LG",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.product);
 
   const handleDelete = (product_id: number) => {
-    setData(data.filter((item) => item.id !== product_id));
+    dispatch(removeProduct(product_id));
   };
 
   const handleModify = (product: Product) => {
@@ -61,29 +56,35 @@ function TableForProducts({ setIsEditProduct, setDataForEditProduct }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.brand}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.description}</TableCell>
-              <TableCell>{product.price.toLocaleString()}</TableCell>
-              <TableCell>{product.category.name}</TableCell>
-              <TableCell className="flex flex-row gap-5">
-                <span className="cursor-pointer hover:bg-blue-50 rounded-sm p-1">
-                  <Pencil
-                    className="size-4 text-blue-600"
+          {data
+            .filter(
+              (product) =>
+                selectedCategory === "Todas categorias" ||
+                product.category.name === selectedCategory
+            )
+            .map((product) => (
+              <TableRow key={product.id}>
+                <TableCell>{product.brand}</TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.description}</TableCell>
+                <TableCell>{Number(product.price).toLocaleString()}</TableCell>
+                <TableCell>{product.category.name}</TableCell>
+                <TableCell className="flex flex-row gap-5">
+                  <span
+                    className="cursor-pointer hover:bg-blue-50 rounded-sm p-1"
                     onClick={() => handleModify(product)}
-                  />
-                </span>
-                <span className="cursor-pointer hover:bg-red-50 rounded-sm p-1">
-                  <Trash2
-                    className="size-4 text-red-600 cursor-pointer"
+                  >
+                    <Pencil className="size-4 text-blue-600" />
+                  </span>
+                  <span
+                    className="cursor-pointer hover:bg-red-50 rounded-sm p-1"
                     onClick={() => handleDelete(product.id)}
-                  />
-                </span>
-              </TableCell>
-            </TableRow>
-          ))}
+                  >
+                    <Trash2 className="size-4 text-red-600" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </Card>

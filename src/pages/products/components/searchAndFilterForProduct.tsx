@@ -25,6 +25,7 @@ function SearchAndFilterForProduct({
   setSelectedCategory,
 }: Props) {
   const allCategories = useSelector((state: RootState) => state.category);
+
   return (
     <Card className="w-full p-4 gap-2">
       <div className="flex gap-5 md:flex-row flex-col w-full">
@@ -35,24 +36,17 @@ function SearchAndFilterForProduct({
           </InputGroupAddon>
           <InputGroupAddon align="inline-end"></InputGroupAddon>
         </InputGroup>
-        <Select>
+        <Select
+          value={selectedCategory}
+          onValueChange={(value) => setSelectedCategory(value)}
+        >
           <SelectTrigger className="w-full md:w-[270px] bg-gray-100 font-medium text-gray-700">
             <SelectValue placeholder={selectedCategory} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem
-              value="Todas categorias"
-              onClick={() => setSelectedCategory("Todas categorias")}
-            >
-              Todas categorias
-            </SelectItem>
+            <SelectItem value="Todas categorias">Todas categorias</SelectItem>
             {allCategories.map((category) => (
-              <SelectItem
-                value={category.name}
-                onClick={() => setSelectedCategory(category.name)}
-              >
-                {category.name}
-              </SelectItem>
+              <SelectItem value={category.name}>{category.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>

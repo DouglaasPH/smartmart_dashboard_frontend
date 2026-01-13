@@ -9,9 +9,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { editProduct } from "@/store/productSlice";
 import type { RootState } from "@/store/store";
 import type { Product } from "@/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   data: Product;
@@ -24,9 +25,11 @@ function CardOfEditProductForProduct({
   setData,
   setIsEditProduct,
 }: Props) {
+  const dispatch = useDispatch();
   const allCategories = useSelector((state: RootState) => state.category);
 
   const handleSave = () => {
+    dispatch(editProduct(data));
     setIsEditProduct(false);
   };
 
