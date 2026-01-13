@@ -10,7 +10,7 @@ export const ROUTES = {
     import: "/products/import/",
   },
   sales: {
-    get: "/sales/",
+    list: "/sales/",
     edit: (sale_id: number) => `/sales/${sale_id}/`,
     export: "/sales/export/",
   },
