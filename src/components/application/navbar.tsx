@@ -3,13 +3,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // lucide-react
-import {
-  FileSpreadsheet,
-  LayoutDashboard,
-  Package,
-  TextAlignJustify,
-  X,
-} from "lucide-react";
+import { LayoutDashboard, Package, TextAlignJustify, X } from "lucide-react";
 
 // shadcn/ui
 import { Button } from "../ui/button";
@@ -65,17 +59,6 @@ function Navbar() {
                 <Package />
                 <span>Produtos</span>
               </Button>
-              <Button
-                className={`cursor-pointer h-8 gap-2 text-sm font-medium ${
-                  currentPathName == "/csv-management"
-                    ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
-                    : "bg-transparent hover:bg-gray-100 text-gray-600"
-                }`}
-                onClick={() => click("/csv-management")}
-              >
-                <FileSpreadsheet />
-                <span>Gerenciar arquivos CSV</span>
-              </Button>
             </div>
           </div>
 
@@ -121,17 +104,6 @@ function Navbar() {
           >
             <Package />
             <span>Produtos</span>
-          </Button>
-          <Button
-            className={`cursor-pointer justify-start h-10 gap-2 text-sm font-medium ${
-              currentPathName == "/csv-management"
-                ? "bg-blue-50 hover:bg-gray-100 text-blue-500"
-                : "bg-transparent hover:bg-gray-100 text-gray-600"
-            }`}
-            onClick={() => click("/csv-management")}
-          >
-            <FileSpreadsheet />
-            <span>Gerenciar arquivos CSV</span>
           </Button>
         </div>
       </div>

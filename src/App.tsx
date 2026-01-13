@@ -7,7 +7,6 @@ import {
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import Products from "./pages/products/Products";
-import CsvManagement from "./pages/csvManagement/CsvManagement";
 import Navbar from "./components/application/navbar";
 import { request_to_list_category } from "./api/services_categories";
 import { useDispatch } from "react-redux";
@@ -35,15 +34,6 @@ const browserRoutes = createBrowserRouter(
           <>
             <Navbar />
             <Products />
-          </>
-        }
-      />
-      <Route
-        path="/csv-management"
-        element={
-          <>
-            <Navbar />
-            <CsvManagement />
           </>
         }
       />
