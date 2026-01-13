@@ -5,7 +5,8 @@ function TitleForDashboard() {
       <div className="flex flex-col gap-2">
         <h1 className="font-semibold text-4xl">Dashboard</h1>
         <p className="text-gray-600">
-          Visão geral completa vendas e receitas de produtos durante 12 meses.
+          Visão geral completa vendas e receitas de produtos durante 12 meses
+          an.
         </p>
       </div>
     </section>

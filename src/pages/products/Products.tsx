@@ -4,7 +4,7 @@ import { useState } from "react";
 // components
 import AddNewCategoryForProduct from "./components/addNewCategoryForProduct";
 import CardOfEditProductForProduct from "./components/cardOfEditProductForProduct";
-import SearchAndFilterForProduct from "./components/SearchAndFilterForProduct";
+import SearchAndFilterForProduct from "./components/searchAndFilterForProduct";
 import TableForProducts from "./components/tableForProducts";
 import TitleAndButtonsForProducts from "./components/titleAndButtonsForProducts";
 
@@ -12,6 +12,7 @@ import TitleAndButtonsForProducts from "./components/titleAndButtonsForProducts"
 import type { Product } from "@/types";
 import AddNewProductForProduct from "./components/addNewProductForProduct";
 import PaginationForProduct from "./components/paginationForProduct";
+import UploadCsvForProduct from "./components/uploadCsvForProduct";
 
 function Products() {
   const [isEditProduct, setIsEditProduct] = useState(false);
@@ -24,7 +25,7 @@ function Products() {
     name: "LG OLED55C1",
     description:
       "55-inch OLED 4K Smart TV with AI ThinQ and G-Sync compatibility",
-    price: "1499.99",
+    price: 1499.99,
     category: {
       id: 1,
       name: "TVs",
@@ -41,6 +42,7 @@ function Products() {
           setIsAddCategory={setIsAddCategory}
           setIsAddProduct={setIsAddProduct}
         />
+        <UploadCsvForProduct />
         {isAddCategory ? (
           <AddNewCategoryForProduct setIsAddCategory={setIsAddCategory} />
         ) : null}

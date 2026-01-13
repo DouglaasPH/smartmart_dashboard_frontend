@@ -44,10 +44,8 @@ export const request_to_export_products = async (): Promise<Product[]> => {
   });
 };
 
-export const request_to_import_products = async (): Promise<Product[]> => {
-  return await api.get(ROUTES.products.import, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const request_to_import_products = async (
+  formData: FormData
+): Promise<void> => {
+  return await api.post(ROUTES.products.import, formData);
 };

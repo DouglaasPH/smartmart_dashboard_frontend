@@ -32,7 +32,7 @@ function TitleAndButtonsForProducts({
           onClick={() => setIsAddProduct(true)}
         >
           <Plus />
-          Adicionar Produto
+          Adicionar Produto sem arquivo CSV
         </Button>
       </div>
     </section>
