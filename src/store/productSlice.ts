@@ -2,7 +2,20 @@ import type { Product } from "@/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: Product[] = [];
+const initialState: Product[] = [
+  {
+    id: 2,
+    name: "LG OLED55C1",
+    description:
+      "55-inch OLED 4K Smart TV with AI ThinQ and G-Sync compatibility",
+    price: "1499.99",
+    category: {
+      id: 1,
+      name: "TVs",
+    },
+    brand: "LG",
+  },
+];
 
 const productSlice = createSlice({
   name: "product",
@@ -12,7 +25,7 @@ const productSlice = createSlice({
       state.push(action.payload);
     },
     removeProduct(state, action: PayloadAction<number>) {
-      state = state.filter((product) => product.id !== action.payload);
+      return state.filter((product) => product.id !== action.payload);
     },
     editProduct(state, action: PayloadAction<Product>) {
       const index = state.findIndex(
@@ -26,5 +39,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct } = productSlice.actions;
+export const { addProduct, removeProduct, editProduct } = productSlice.actions;
 export default productSlice.reducer;
