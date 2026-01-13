@@ -12,6 +12,7 @@ import type { RootState } from "@/store/store";
 import type { Product } from "@/types";
 import { Pencil, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import NoFound from "./noFound";
 
 interface Props {
   setIsEditProduct: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +36,11 @@ function TableForProducts({
 
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.product);
+  const filteredData = data.filter(
+    (product) =>
+      selectedCategory === "Todas categorias" ||
+      product.category.name === selectedCategory
+  );
 
   const handleDelete = (product_id: number) => {
     dispatch(removeProduct(product_id));
@@ -56,35 +62,30 @@ function TableForProducts({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data
-            .filter(
-              (product) =>
-                selectedCategory === "Todas categorias" ||
-                product.category.name === selectedCategory
-            )
-            .map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>{product.brand}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.description}</TableCell>
-                <TableCell>{Number(product.price).toLocaleString()}</TableCell>
-                <TableCell>{product.category.name}</TableCell>
-                <TableCell className="flex flex-row gap-5">
-                  <span
-                    className="cursor-pointer hover:bg-blue-50 rounded-sm p-1"
-                    onClick={() => handleModify(product)}
-                  >
-                    <Pencil className="size-4 text-blue-600" />
-                  </span>
-                  <span
-                    className="cursor-pointer hover:bg-red-50 rounded-sm p-1"
-                    onClick={() => handleDelete(product.id)}
-                  >
-                    <Trash2 className="size-4 text-red-600" />
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
+          {filteredData.length === 0 ? <NoFound /> : null}
+          {filteredData.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell>{product.brand}</TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.description}</TableCell>
+              <TableCell>{Number(product.price).toLocaleString()}</TableCell>
+              <TableCell>{product.category.name}</TableCell>
+              <TableCell className="flex flex-row gap-5">
+                <span
+                  className="cursor-pointer hover:bg-blue-50 rounded-sm p-1"
+                  onClick={() => handleModify(product)}
+                >
+                  <Pencil className="size-4 text-blue-600" />
+                </span>
+                <span
+                  className="cursor-pointer hover:bg-red-50 rounded-sm p-1"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  <Trash2 className="size-4 text-red-600" />
+                </span>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </Card>
