@@ -22,10 +22,9 @@ export const request_to_edit_sale = async (
   });
 };
 
-export const request_to_export_sales = async (): Promise<Sale[]> => {
-  return await api.get(ROUTES.sales.export, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const request_to_export_sales = async (): Promise<Blob> => {
+  const response = await api.get(ROUTES.sales.export, {
+    responseType: "blob",
   });
+  return response.data;
 };
