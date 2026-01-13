@@ -12,7 +12,7 @@ SmartMart Dashboard é uma aplicação web para visualização e gestão de prod
 - **NPM** — Gerenciador de pacotes
 - **Tailwind CSS** — Framework CSS
 - **Redux Toolkit** — Gerenciamento de estado global
-- **Axios** — Comuicação com a API
+- **Axios** — Comunicação com a API
 - **Radix UI** — Componentes para UI
 - **Shadcn/ui** — Biblioteca de componentes reutilizáveis baseada em Radix UI
 - **Lucide-React** — Biblioteca de ícones SVG
@@ -91,8 +91,17 @@ smartmart_dashboard_frontend/
 <br>
 
 ## Pré-requisito
-
+- **Node.js** (versão LTS recomendada)
 - **NPM**
+
+<br>
+
+## Funcionalidades
+- Importação de produtos via CSV
+- Exportação de produtos e vendas via CSV
+- Filtro de produtos por categoria
+- Busca de produtos por digitação (input)
+- Dashboard com gráficos
 
 <br>
 
