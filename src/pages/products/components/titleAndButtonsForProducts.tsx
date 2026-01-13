@@ -1,3 +1,4 @@
+import { request_to_export_products } from "@/api/services_products";
 import { Button } from "@/components/ui/button";
 import { Plus, Tag } from "lucide-react";
 
@@ -10,8 +11,26 @@ function TitleAndButtonsForProducts({
   setIsAddCategory,
   setIsAddProduct,
 }: Props) {
+  const handleExportProducts = async () => {
+    try {
+      const blob = await request_to_export_products();
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = "products.csv";
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <section className="flex justify-between w-full items-start md:flex-row flex-col md:gap-auto gap-5">
+    <section className="flex justify-between w-full items-start  flex-col xl:flex-row md:gap-auto gap-5">
       {/* Title and Description */}
       <div className="flex flex-col gap-2">
         <h1 className="font-semibold text-4xl">Gestão de Produtos</h1>
@@ -19,7 +38,7 @@ function TitleAndButtonsForProducts({
       </div>
 
       {/* Buttons */}
-      <div className="md:w-auto w-full flex gap-3 flex-col sm:flex-row">
+      <div className="md:w-auto w-full flex gap-3 flex-col md:flex-row">
         <Button
           className="bg-green-600 hover:bg-green-500 cursor-pointer"
           onClick={() => setIsAddCategory(true)}
@@ -33,6 +52,12 @@ function TitleAndButtonsForProducts({
         >
           <Plus />
           Adicionar Produto sem arquivo CSV
+        </Button>
+        <Button
+          className="bg-yellow-600 hover:bg-yellow-500 cursor-pointer"
+          onClick={() => handleExportProducts()}
+        >
+          Exportar produtos (CSV)
         </Button>
       </div>
     </section>

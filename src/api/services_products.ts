@@ -36,12 +36,11 @@ export const request_to_list_products = async (): Promise<Product[]> => {
   return request.data;
 };
 
-export const request_to_export_products = async (): Promise<Product[]> => {
-  return await api.get(ROUTES.products.export, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const request_to_export_products = async (): Promise<Blob> => {
+  const response = await api.get(ROUTES.products.export, {
+    responseType: "blob",
   });
+  return response.data;
 };
 
 export const request_to_import_products = async (
